@@ -10,12 +10,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val androidList = Server.getMovie()
+        val movieList = Server.getMovie()
 
-        val recycler = findViewById<RecyclerView>(R.id.rvAndroidList)
+        val recycler = findViewById<RecyclerView>(R.id.rv_movie_list)
         val adapter = AndroidAdapter()
         recycler.adapter = adapter
-        recycler.layoutManager =LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false)
-        adapter.setItems(androidList)
+        recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        adapter.setItems(movieList)
     }
 }

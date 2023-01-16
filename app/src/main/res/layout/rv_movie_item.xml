@@ -23,13 +23,13 @@
         android:layout_marginEnd="4dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/iv_isOscar"
+        app:layout_constraintEnd_toStartOf="@+id/iv_is_oscar"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Name of the movie" />
 
     <ImageView
-        android:id="@+id/iv_isOscar"
+        android:id="@+id/iv_is_oscar"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginEnd="16dp"

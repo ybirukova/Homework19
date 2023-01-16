@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class AndroidAdapter :
-    RecyclerView.Adapter<AndroidViewHolder>() {
+    RecyclerView.Adapter<MovieViewHolder>() {
     private val list: MutableList<Movie> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AndroidViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.rv_movie_item, parent, false)
-        return AndroidViewHolder(view)
+        return MovieViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AndroidViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.onBind(list[position])
     }
 
