@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class AndroidAdapter :
+class MovieAdapter (private val itemCLick: (String, String) -> Unit) :
     RecyclerView.Adapter<MovieViewHolder>() {
     private val list: MutableList<Movie> = mutableListOf()
 
@@ -15,7 +15,7 @@ class AndroidAdapter :
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.onBind(list[position])
+        holder.onBind(list[position], itemCLick)
     }
 
     override fun getItemCount(): Int = list.size

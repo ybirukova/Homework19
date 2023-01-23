@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 
 class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun onBind(movie: Movie) {
+    fun onBind(movie: Movie, itemClick: (String, String) -> Unit) {
         val poster = itemView.findViewById<ImageView>(R.id.iv_poster)
         val name = itemView.findViewById<TextView>(R.id.tv_name)
         val oscar = itemView.findViewById<ImageView>(R.id.iv_is_oscar)
@@ -24,5 +24,9 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .with(itemView.context)
             .load(movie.imageStr)
             .into(poster)
+
+        itemView.setOnClickListener{
+            itemClick.invoke(movie.name, movie.about)
+        }
     }
 }
