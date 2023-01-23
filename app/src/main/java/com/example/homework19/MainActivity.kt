@@ -19,13 +19,19 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.about_fragment, newFragment)
+                .addToBackStack("")
                 .commit()
-            //Запуск фрагмента
         }
 
         val adapter = MovieAdapter(itemClick)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         adapter.setItems(movieList)
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount==0)
+            super.onBackPressed()
+        else supportFragmentManager.popBackStack()
     }
 }
