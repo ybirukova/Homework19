@@ -2,17 +2,13 @@ package com.example.homework19
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.homework19.model.ui.AboutFragment
+import com.example.homework19.model.ui.MovieFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val movieList = Server.getMovie()
-
-        val recycler = findViewById<RecyclerView>(R.id.rv_movie_list)
 
         val itemClick: (String, String) -> Unit = { title, about ->
             val newFragment = AboutFragment.newInstance(title, about)
@@ -23,14 +19,14 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        val adapter = MovieAdapter(itemClick)
-        recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        adapter.setItems(movieList)
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fr_movie, MovieFragment(itemClick))
+            .commit()
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount==0)
+        if (supportFragmentManager.backStackEntryCount == 0)
             super.onBackPressed()
         else supportFragmentManager.popBackStack()
     }
