@@ -1,4 +1,4 @@
-package com.example.homework19.model.ui.movies_list
+package com.example.homework19.ui.movies_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homework19.R
 import com.example.homework19.model.models.MovieData
-import com.example.homework19.model.presenter.MoviePresenter
-import com.example.homework19.model.presenter.MoviePresenterImpl
+import com.example.homework19.presenter.MoviePresenter
+import com.example.homework19.presenter.MoviePresenterImpl
 
 class MovieFragment : Fragment(), MovieView {
     private var itemCLick: ((String, String) -> Unit)? = null

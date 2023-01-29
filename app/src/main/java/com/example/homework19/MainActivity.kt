@@ -3,8 +3,8 @@ package com.example.homework19
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.homework19.model.ui.movie_details.AboutFragment
-import com.example.homework19.model.ui.movies_list.MovieFragment
+import com.example.homework19.ui.movie_details.AboutFragment
+import com.example.homework19.ui.movies_list.MovieFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

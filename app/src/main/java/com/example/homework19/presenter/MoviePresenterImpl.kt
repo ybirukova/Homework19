@@ -1,6 +1,6 @@
-package com.example.homework19.model.presenter
+package com.example.homework19.presenter
 
-import com.example.homework19.model.ui.movies_list.MovieView
+import com.example.homework19.ui.movies_list.MovieView
 import com.example.homework19.model.models.MovieRepository
 import com.example.homework19.model.Server
 

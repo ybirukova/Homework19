@@ -1,4 +1,4 @@
-package com.example.homework19.model.ui.movies_list
+package com.example.homework19.ui.movies_list
 
 import com.example.homework19.model.models.MovieData
 

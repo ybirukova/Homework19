@@ -1,4 +1,4 @@
-package com.example.homework19.model.presenter
+package com.example.homework19.presenter
 
 interface MoviePresenter {
 
