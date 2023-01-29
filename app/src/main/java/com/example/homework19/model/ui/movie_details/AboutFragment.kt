@@ -1,4 +1,4 @@
-package com.example.homework19.model.ui
+package com.example.homework19.model.ui.movie_details
 
 import android.os.Bundle
 import android.view.LayoutInflater

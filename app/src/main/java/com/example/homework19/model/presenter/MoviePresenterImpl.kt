@@ -1,8 +1,8 @@
 package com.example.homework19.model.presenter
 
-import com.example.homework19.model.ui.MovieView
+import com.example.homework19.model.ui.movies_list.MovieView
 import com.example.homework19.model.models.MovieRepository
-import com.example.homework19.model.models.Server
+import com.example.homework19.model.Server
 
 class MoviePresenterImpl(private var view: MovieView?) : MoviePresenter {
 

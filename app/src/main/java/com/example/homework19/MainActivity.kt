@@ -2,8 +2,9 @@ package com.example.homework19
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.homework19.model.ui.AboutFragment
-import com.example.homework19.model.ui.MovieFragment
+import androidx.fragment.app.Fragment
+import com.example.homework19.model.ui.movie_details.AboutFragment
+import com.example.homework19.model.ui.movies_list.MovieFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,23 +12,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val itemClick: (String, String) -> Unit = { title, about ->
-            val newFragment = AboutFragment.newInstance(title, about)
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.about_fragment, newFragment)
-                .addToBackStack("")
-                .commit()
+            openFragment(AboutFragment.newInstance(title, about), true)
         }
 
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fr_movie, MovieFragment(itemClick))
-            .commit()
+        openFragment(MovieFragment.newInstance(itemClick), false)
     }
 
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount == 0)
-            super.onBackPressed()
-        else supportFragmentManager.popBackStack()
+    private fun openFragment(fragment: Fragment, addToBackStack: Boolean) {
+
+        val transaction = supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        transaction.commit()
     }
 }

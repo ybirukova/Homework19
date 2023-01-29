@@ -1,6 +1,7 @@
-package com.example.homework19.model.models
+package com.example.homework19.model
 
-import com.example.homework19.model.ui.MovieData
+import com.example.homework19.model.models.MovieData
+import com.example.homework19.model.models.MovieRepository
 
 object Server : MovieRepository {
 

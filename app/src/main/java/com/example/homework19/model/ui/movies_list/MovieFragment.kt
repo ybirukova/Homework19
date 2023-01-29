@@ -1,4 +1,4 @@
-package com.example.homework19.model.ui
+package com.example.homework19.model.ui.movies_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.homework19.MovieAdapter
 import com.example.homework19.R
+import com.example.homework19.model.models.MovieData
 import com.example.homework19.model.presenter.MoviePresenter
 import com.example.homework19.model.presenter.MoviePresenterImpl
 
-class MovieFragment(private val itemCLick: (String, String) -> Unit) : Fragment(), MovieView {
+class MovieFragment : Fragment(), MovieView {
+    private var itemCLick: ((String, String) -> Unit)? = null
     private var presenter: MoviePresenter? = null
 
     override fun onCreateView(
@@ -42,5 +43,13 @@ class MovieFragment(private val itemCLick: (String, String) -> Unit) : Fragment(
         super.onDestroyView()
 
         presenter?.onClear()
+    }
+
+    companion object {
+        fun newInstance(itemClick: (String, String) -> Unit): MovieFragment {
+            val fragment = MovieFragment()
+            fragment.itemCLick = itemClick
+            return fragment
+        }
     }
 }
