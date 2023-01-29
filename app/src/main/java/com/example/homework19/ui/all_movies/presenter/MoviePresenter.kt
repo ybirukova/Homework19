@@ -1,4 +1,4 @@
-package com.example.homework19.presenter
+package com.example.homework19.ui.all_movies.presenter
 
 interface MoviePresenter {
 

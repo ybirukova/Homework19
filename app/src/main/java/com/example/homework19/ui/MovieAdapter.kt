@@ -1,4 +1,4 @@
-package com.example.homework19.ui.movies_list
+package com.example.homework19.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.homework19.R
-import com.example.homework19.model.models.MovieData
+import com.example.homework19.domain.models.MovieData
 
 class MovieAdapter(
     private val movieList: List<MovieData>,

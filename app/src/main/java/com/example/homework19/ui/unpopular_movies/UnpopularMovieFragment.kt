@@ -1,4 +1,4 @@
-package com.example.homework19.ui.movies_list
+package com.example.homework19.ui.unpopular_movies
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,32 +8,34 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homework19.R
-import com.example.homework19.model.models.MovieData
-import com.example.homework19.presenter.MoviePresenter
-import com.example.homework19.presenter.MoviePresenterImpl
+import com.example.homework19.domain.models.MovieData
+import com.example.homework19.ui.MovieAdapter
+import com.example.homework19.ui.unpopular_movies.presenter.UnpopularMoviesPresenter
+import com.example.homework19.ui.unpopular_movies.presenter.UnpopularMoviesPresenterImpl
 
-class MovieFragment : Fragment(), MovieView {
+class UnpopularMovieFragment : Fragment(), UnpopularMovieView {
+
     private var itemCLick: ((String, String) -> Unit)? = null
-    private var presenter: MoviePresenter? = null
+    private var presenter: UnpopularMoviesPresenter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.fragment_movies, container, false)
+        return inflater.inflate(R.layout.fragment_unpopular_movies, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = MoviePresenterImpl(this)
+        presenter = UnpopularMoviesPresenterImpl(this)
 
-        presenter?.getMovies()
+        presenter?.getUnpopularMovies()
     }
 
-    override fun showMovies(movies: List<MovieData>) {
+    override fun showUnpopularMovies(movies: List<MovieData>) {
         val adapter = MovieAdapter(movies, itemCLick)
-        val recycler = view?.findViewById<RecyclerView>(R.id.rv_movie_list)
+        val recycler = view?.findViewById<RecyclerView>(R.id.rv_unpopular_movie_list)
         recycler?.adapter = adapter
         recycler?.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -46,10 +48,8 @@ class MovieFragment : Fragment(), MovieView {
     }
 
     companion object {
-        fun newInstance(itemClick: (String, String) -> Unit): MovieFragment {
-            val fragment = MovieFragment()
-            fragment.itemCLick = itemClick
-            return fragment
+        fun newInstance(): UnpopularMovieFragment {
+            return UnpopularMovieFragment()
         }
     }
 }

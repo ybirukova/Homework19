@@ -1,4 +1,4 @@
-package com.example.homework19.model.models
+package com.example.homework19.domain.models
 
 data class MovieData(
     val imageStr: String,
