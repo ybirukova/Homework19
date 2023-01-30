@@ -16,7 +16,7 @@ import com.example.homework19.ui.all_movies.presenter.MoviePresenterImpl
 
 class MovieFragment : Fragment(), MoviesView {
 
-    private lateinit var unpopularButton: Button
+    private var unpopularButton: Button? = null
     private var onItemCLick: ((String, String) -> Unit)? = null
     private var onUnpopularButtonCLick: (() -> Unit)? = null
     private var presenter: MoviePresenter? = null
@@ -35,7 +35,7 @@ class MovieFragment : Fragment(), MoviesView {
         presenter?.getMovies()
 
         unpopularButton = view.findViewById(R.id.button_show_unpopular_movies)
-        unpopularButton.setOnClickListener {
+        unpopularButton?.setOnClickListener {
             onUnpopularButtonCLick?.invoke()
         }
     }
