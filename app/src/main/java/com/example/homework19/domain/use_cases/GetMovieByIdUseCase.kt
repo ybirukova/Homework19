@@ -4,7 +4,7 @@ import com.example.homework19.domain.models.MovieData
 import com.example.homework19.domain.repository.MoviesRepository
 import javax.inject.Inject
 
-class GetAllMoviesUseCase @Inject constructor(private val repository: MoviesRepository) {
+class GetMovieByIdUseCase @Inject constructor(private val repository: MoviesRepository) {
 
-    operator fun invoke(): List<MovieData> = repository.getMovies()
+    operator fun invoke(id: Int): MovieData = repository.getMovies()[id]
 }

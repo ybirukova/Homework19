@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentMovies">
+
+    <fragment
+        android:id="@+id/fragmentMovies"
+        android:name="com.example.homework19.ui.all_movies.MovieFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_movies">
+
+        <action
+            android:id="@+id/action_fragmentMovies_to_fragmentInfo"
+            app:destination="@id/fragmentInfo" />
+        <action
+            android:id="@+id/action_fragmentMovies_to_fragmentUnpopularMovies"
+            app:destination="@id/fragmentUnpopularMovies" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragmentInfo"
+        android:name="com.example.homework19.ui.movie_info.InfoFragment"
+        android:label="InfoFragment"
+        tools:layout="@layout/fragment_info">
+
+        <argument
+            android:name="movieId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentUnpopularMovies"
+        android:name="com.example.homework19.ui.unpopular_movies.UnpopularMovieFragment"
+        android:label="UnpopularMoviesFragment"
+        tools:layout="@layout/fragment_unpopular_movies">
+
+        <action
+            android:id="@+id/action_fragmentUnpopularMovies_to_fragmentInfo"
+            app:destination="@id/fragmentInfo" />
+    </fragment>
+
+</navigation>

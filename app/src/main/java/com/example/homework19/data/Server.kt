@@ -1,10 +1,11 @@
-package com.example.homework19
+package com.example.homework19.data
 
 import com.example.homework19.data.models.MovieResponse
 import com.example.homework19.domain.models.MovieData
 import com.example.homework19.domain.repository.MoviesRepository
+import javax.inject.Inject
 
-object Server {
+class Server @Inject constructor() {
 
     fun getMovies(): List<MovieResponse> = listOf(
         MovieResponse(
