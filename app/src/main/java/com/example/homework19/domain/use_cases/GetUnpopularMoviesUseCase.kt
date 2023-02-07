@@ -1,14 +1,14 @@
 package com.example.homework19.domain.use_cases
 
-import com.example.homework19.data.MoviesRepositoryImpl
 import com.example.homework19.domain.models.MovieData
 import com.example.homework19.domain.repository.MoviesRepository
+import javax.inject.Inject
 
-class GetUnpopularMoviesUseCase {
+class GetUnpopularMoviesUseCase @Inject constructor(
+    private val repository: MoviesRepository
+) {
 
-    private val repository: MoviesRepository = MoviesRepositoryImpl()
-
-    operator fun invoke(): List<MovieData> =
+    suspend operator fun invoke(): List<MovieData> =
         repository.getMovies().filter { it.rating < POPULAR_RATING }
 
     companion object {

@@ -5,21 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homework19.R
-import com.example.homework19.domain.models.MovieData
 import com.example.homework19.ui.MovieAdapter
-import com.example.homework19.ui.all_movies.presenter.MoviePresenter
-import com.example.homework19.ui.all_movies.presenter.MoviePresenterImpl
+import dagger.hilt.android.AndroidEntryPoint
 
-class MovieFragment : Fragment(), MoviesView {
+@AndroidEntryPoint
+class MovieFragment : Fragment() {
 
     private var unpopularButton: Button? = null
-    private var onItemCLick: ((String, String) -> Unit)? = null
-    private var onUnpopularButtonCLick: (() -> Unit)? = null
-    private var presenter: MoviePresenter? = null
+    private val viewModel by viewModels<MovieViewModel>()
+
+    private val itemClick: (Int) -> Unit = { id ->
+        val action =
+            MovieFragmentDirections.actionFragmentMoviesToFragmentInfo(id)
+        findNavController().navigate(action)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,39 +39,33 @@ class MovieFragment : Fragment(), MoviesView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter = MoviePresenterImpl(this)
-        presenter?.getMovies()
+
+        viewModel.getAllMovies()
+
+        val recycler = view.findViewById<RecyclerView>(R.id.rv_movie_list)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progress_bar)
+
+        viewModel.loadingLiveData.observe(viewLifecycleOwner) { show ->
+            progressBar.isVisible = show
+            recycler.isVisible = show.not()
+        }
+
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.liveData.observe(viewLifecycleOwner) {
+            val adapter = MovieAdapter(it, itemClick)
+            recycler?.adapter = adapter
+            recycler?.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        }
 
         unpopularButton = view.findViewById(R.id.button_show_unpopular_movies)
         unpopularButton?.setOnClickListener {
-            onUnpopularButtonCLick?.invoke()
-        }
-    }
 
-    override fun showMovies(movies: List<MovieData>) {
-        val adapter = MovieAdapter(movies, onItemCLick)
-        val recycler = view?.findViewById<RecyclerView>(R.id.rv_movie_list)
-        recycler?.adapter = adapter
-        recycler?.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        presenter?.onClear()
-    }
-
-    companion object {
-
-        fun newInstance(
-            onItemClick: (String, String) -> Unit,
-            onUnpopularButtonClick: () -> Unit
-        ): MovieFragment {
-            val fragment = MovieFragment()
-            fragment.onItemCLick = onItemClick
-            fragment.onUnpopularButtonCLick = onUnpopularButtonClick
-            return fragment
+            val action = MovieFragmentDirections.actionFragmentMoviesToFragmentUnpopularMovies()
+            findNavController().navigate(action)
         }
     }
 }

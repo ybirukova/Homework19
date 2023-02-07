@@ -13,14 +13,14 @@ import com.example.homework19.domain.models.MovieData
 
 class MovieAdapter(
     private val movieList: List<MovieData>,
-    private val itemCLick: ((String, String) -> Unit)?
+    private val itemClick: (Int) -> Unit
 ) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.rv_movie_item, parent, false)
-        return MovieViewHolder(view, itemCLick)
+        return MovieViewHolder(view, itemClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -31,12 +31,11 @@ class MovieAdapter(
 
     inner class MovieViewHolder(
         itemView: View,
-        private val itemCLick: ((String, String) -> Unit)?
+        private val itemClick: (Int) -> Unit
     ) :
         RecyclerView.ViewHolder(itemView) {
 
         fun onBind(movie: MovieData) {
-            val itemClick = this.itemCLick
             val poster = itemView.findViewById<ImageView>(R.id.iv_poster)
             val name = itemView.findViewById<TextView>(R.id.tv_name)
             val oscar = itemView.findViewById<ImageView>(R.id.iv_is_oscar)
@@ -52,7 +51,7 @@ class MovieAdapter(
                 .into(poster)
 
             itemView.setOnClickListener {
-                itemClick?.invoke(movie.name, movie.about)
+                itemClick.invoke(adapterPosition)
             }
         }
     }
