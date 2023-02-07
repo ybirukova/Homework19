@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.homework19.R
 import com.example.homework19.domain.models.MovieData
 import com.example.homework19.domain.use_cases.GetAllMoviesUseCase
+import com.example.homework19.domain.use_cases.GetFavoriteMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(
-    private val getAllMoviesUseCase: GetAllMoviesUseCase
+    private val getAllMoviesUseCase: GetAllMoviesUseCase,
+    private val getFavoriteMovieUseCase: GetFavoriteMovieUseCase
 ) : ViewModel() {
 
     private val _liveData = MutableLiveData<List<MovieData>>()
@@ -27,6 +29,9 @@ class MovieViewModel @Inject constructor(
 
     private val _loadingLiveData = MutableLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean> get() = _loadingLiveData
+
+    private val _favoriteMovieLiveData = MutableLiveData<MovieData?>()
+    val favoriteMovieLiveData: LiveData<MovieData?> get() = _favoriteMovieLiveData
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _loadingLiveData.value = false
@@ -46,8 +51,10 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-    fun getLoadingStatus() {
+    fun getFavoriteMovie() {
         viewModelScope.launch {
+            val favoriteMovie = getFavoriteMovieUseCase.invoke()
+            _favoriteMovieLiveData.value = favoriteMovie
         }
     }
 }
