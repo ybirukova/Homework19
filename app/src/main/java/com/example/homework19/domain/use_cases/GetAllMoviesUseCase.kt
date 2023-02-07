@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 class GetAllMoviesUseCase @Inject constructor(private val repository: MoviesRepository) {
 
-    operator fun invoke(): List<MovieData> = repository.getMovies()
+    suspend operator fun invoke(): List<MovieData> = repository.getMovies()
 }

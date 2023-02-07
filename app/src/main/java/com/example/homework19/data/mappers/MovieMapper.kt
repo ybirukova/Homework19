@@ -12,7 +12,7 @@ class MovieMapper @Inject constructor() {
             name = name.orEmpty(),
             isOscar = isOscar ?: false,
             rating = rating ?: 0.0,
-            about = about ?: ""
+            about = about.orEmpty()
         )
     }
 }

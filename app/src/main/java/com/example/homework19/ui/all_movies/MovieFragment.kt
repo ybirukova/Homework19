@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,9 +42,20 @@ class MovieFragment : Fragment() {
 
         viewModel.getAllMovies()
 
+        val recycler = view.findViewById<RecyclerView>(R.id.rv_movie_list)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progress_bar)
+
+        viewModel.loadingLiveData.observe(viewLifecycleOwner) { show ->
+            progressBar.isVisible = show
+            recycler.isVisible = show.not()
+        }
+
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
         viewModel.liveData.observe(viewLifecycleOwner) {
             val adapter = MovieAdapter(it, itemClick)
-            val recycler = view.findViewById<RecyclerView>(R.id.rv_movie_list)
             recycler?.adapter = adapter
             recycler?.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -49,6 +63,7 @@ class MovieFragment : Fragment() {
 
         unpopularButton = view.findViewById(R.id.button_show_unpopular_movies)
         unpopularButton?.setOnClickListener {
+
             val action = MovieFragmentDirections.actionFragmentMoviesToFragmentUnpopularMovies()
             findNavController().navigate(action)
         }

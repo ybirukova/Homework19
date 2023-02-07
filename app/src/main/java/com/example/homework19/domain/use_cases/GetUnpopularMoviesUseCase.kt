@@ -8,7 +8,7 @@ class GetUnpopularMoviesUseCase @Inject constructor(
     private val repository: MoviesRepository
 ) {
 
-    operator fun invoke(): List<MovieData> =
+    suspend operator fun invoke(): List<MovieData> =
         repository.getMovies().filter { it.rating < POPULAR_RATING }
 
     companion object {

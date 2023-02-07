@@ -29,7 +29,6 @@ class MovieAdapter(
 
     override fun getItemCount(): Int = movieList.size
 
-
     inner class MovieViewHolder(
         itemView: View,
         private val itemClick: (Int) -> Unit

@@ -32,6 +32,18 @@ class InfoFragment : Fragment() {
             val about = view.findViewById<TextView>(R.id.tv_fragment_about)
             val title = view.findViewById<TextView>(R.id.tv_fragment_title)
 
+            /*** если операция выполняется в другом потоке, about.text = it.about необходимо писать следующим образом:
+             * т.к. это действие должно производится в главном потоке (иначе будет ошибка)
+             *
+            val myRunnable = Runnable{
+                Thread.sleep(2000)
+                about.post{
+                    about.text = it.about
+                }
+            }
+            val thread = Thread(myRunnable)
+            thread.start()
+             */
             about.text = it.about
             title.text = it.name
         }
