@@ -1,6 +1,7 @@
 package com.example.homework19.ui.all_movies
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MovieFragment : Fragment() {
 
-    private var unpopularButton: Button? = null
     private val viewModel by viewModels<MovieViewModel>()
 
     private val itemClick: (Int) -> Unit = { id ->
@@ -41,9 +41,12 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getAllMovies()
+        viewModel.getFavoriteMovie()
 
         val recycler = view.findViewById<RecyclerView>(R.id.rv_movie_list)
         val progressBar = view.findViewById<ProgressBar>(R.id.progress_bar)
+        val unpopularButton = view.findViewById<Button>(R.id.button_show_unpopular_movies)
+        val favoriteMovieButton = view.findViewById<Button>(R.id.button_show_favorite_movie)
 
         viewModel.loadingLiveData.observe(viewLifecycleOwner) { show ->
             progressBar.isVisible = show
@@ -61,9 +64,17 @@ class MovieFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        unpopularButton = view.findViewById(R.id.button_show_unpopular_movies)
-        unpopularButton?.setOnClickListener {
+        favoriteMovieButton.setOnClickListener{
+        viewModel.favoriteMovieLiveData.observe(viewLifecycleOwner){movie->
 
+            Log.d("PRINT", "${movie?.name}")
+                if (movie != null) {
+                    Toast.makeText(requireContext(),"Favorite movie: ${movie.name}",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        unpopularButton?.setOnClickListener {
             val action = MovieFragmentDirections.actionFragmentMoviesToFragmentUnpopularMovies()
             findNavController().navigate(action)
         }

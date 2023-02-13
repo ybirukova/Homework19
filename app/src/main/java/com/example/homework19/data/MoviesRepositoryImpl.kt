@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
     private val service: Server,
-    private val mapper: MovieMapper
+    private val mapperMovie: MovieMapper,
 ) : MoviesRepository {
 
     override suspend fun getMovies(): List<MovieData> =
-        withContext(Dispatchers.IO) { service.getMovies().map { mapper(it) } }
+        withContext(Dispatchers.IO) { service.getMovies().map { mapperMovie(it) } }
 }

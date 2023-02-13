@@ -8,6 +8,7 @@ class MovieMapper @Inject constructor() {
 
     operator fun invoke(response: MovieResponse) = with(response) {
         MovieData(
+            id = id ?: -1,
             imageStr = imageStr.orEmpty(),
             name = name.orEmpty(),
             isOscar = isOscar ?: false,
