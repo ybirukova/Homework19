@@ -4,5 +4,5 @@ import com.example.homework19.domain.models.MovieData
 
 interface FavoriteMovieRepository {
 
-    suspend fun getFavoriteMovie(): MovieData?
+    suspend fun getFavoriteMovie(): MovieData
 }

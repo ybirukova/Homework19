@@ -19,8 +19,8 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun getUser(): UserData =
         withContext(Dispatchers.IO) { mapperUser(service.getUser()) }
 
-    override suspend fun getFavoriteMovie(): MovieData? =
+    override suspend fun getFavoriteMovie(): MovieData =
         withContext(Dispatchers.IO) {
-            service.getMovieById(getUser().favoriteMovieId)?.let { mapperMovie(it) }
+             mapperMovie(service.getMovieById(getUser().favoriteMovieId))
         }
 }

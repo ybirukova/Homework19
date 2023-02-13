@@ -30,8 +30,8 @@ class MovieViewModel @Inject constructor(
     private val _loadingLiveData = MutableLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean> get() = _loadingLiveData
 
-    private val _favoriteMovieLiveData = MutableLiveData<MovieData?>()
-    val favoriteMovieLiveData: LiveData<MovieData?> get() = _favoriteMovieLiveData
+    private val _favoriteMovieLiveData = MutableLiveData<MovieData>()
+    val favoriteMovieLiveData: LiveData<MovieData> get() = _favoriteMovieLiveData
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _loadingLiveData.value = false

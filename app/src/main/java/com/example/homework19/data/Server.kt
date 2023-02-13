@@ -116,15 +116,14 @@ class Server @Inject constructor() {
         return UserResponse(111, 111)
     }
 
-    suspend fun getMovieById(id: Int): MovieResponse? {
+    suspend fun getMovieById(id: Int): MovieResponse {
         delay(3000)
 
-        var favoriteMovie: MovieResponse? = null
         val movieList = getMovies()
         for (movie in movieList) {
             if (movie.id == id)
-                favoriteMovie = movie
+                return movie
         }
-        return favoriteMovie
+        return MovieResponse()
     }
 }
