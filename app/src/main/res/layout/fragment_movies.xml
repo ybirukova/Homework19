@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragmentMovies"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_movie_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rv_movie_list" />
+    <data>
+        <variable
+            name="movieViewModel"
+            type="com.example.homework19.ui.all_movies.MovieViewModel" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movie_list"
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragmentMovies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="170dp" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button_show_favorite_movie"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginBottom="50dp"
-        android:text="Show favorite movie"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:goneUnless="@{movieViewModel.loadingLiveData}"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_movie_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_movie_list" />
 
-    <Button
-        android:id="@+id/button_show_unpopular_movies"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="50dp"
-        android:text="Show unpopular movies"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movie_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="170dp"
+            app:goneUnless="@{movieViewModel.loadingLiveData}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/button_show_favorite_movie"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="50dp"
+            android:text="@string/show_favorite_movie"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_show_unpopular_movies"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="50dp"
+            android:text="@string/show_unpopular_movies"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
