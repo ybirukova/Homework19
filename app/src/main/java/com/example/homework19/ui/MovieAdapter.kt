@@ -1,14 +1,11 @@
 package com.example.homework19.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.homework19.R
+import com.example.homework19.databinding.RvMovieItemBinding
 import com.example.homework19.domain.models.MovieData
 
 class MovieAdapter(
@@ -18,9 +15,9 @@ class MovieAdapter(
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.rv_movie_item, parent, false)
-        return MovieViewHolder(view, itemClick)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = RvMovieItemBinding.inflate(layoutInflater, parent, false)
+        return MovieViewHolder(binding, itemClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -30,25 +27,20 @@ class MovieAdapter(
     override fun getItemCount(): Int = movieList.size
 
     inner class MovieViewHolder(
-        itemView: View,
+        private val binding: RvMovieItemBinding,
         private val itemClick: (Int) -> Unit
     ) :
-        RecyclerView.ViewHolder(itemView) {
+        RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(movie: MovieData) {
-            val poster = itemView.findViewById<ImageView>(R.id.iv_poster)
-            val name = itemView.findViewById<TextView>(R.id.tv_name)
-            val oscar = itemView.findViewById<ImageView>(R.id.iv_is_oscar)
-            val rating = itemView.findViewById<TextView>(R.id.tv_rating)
-
-            name.text = movie.name
-            oscar.isVisible = movie.isOscar
-            rating.text = movie.rating.toString()
+            binding.tvName.text = movie.name
+            binding.ivIsOscar.isVisible = movie.isOscar
+            binding.tvRating.text = movie.rating.toString()
 
             Glide
-                .with(itemView.context)
+                .with(binding.root.context)
                 .load(movie.imageStr)
-                .into(poster)
+                .into(binding.ivPoster)
 
             itemView.setOnClickListener {
                 itemClick.invoke(adapterPosition)

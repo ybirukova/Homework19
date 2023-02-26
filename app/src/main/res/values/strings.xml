@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Homework19</string>
-
+    <string name="app_name">Homework30</string>
     <string name="connection_error">Connection error</string>
     <string name="unknown_error">Unknown error</string>
+    <string name="show_unpopular_movies">Show unpopular movies</string>
+    <string name="show_favorite_movie">how favorite movie</string>
 </resources>
